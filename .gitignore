@@ -1,0 +1,47 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+*.egg
+
+# --- Virtual environments ---
+.venv/
+venv/
+env/
+
+# --- Testing ---
+.pytest_cache/
+.coverage
+htmlcov/
+
+# --- Jupyter ---
+.ipynb_checkpoints/
+
+# --- Logs ---
+logs/
+*.log
+
+# --- Generated data & reports (regenerate via `python main.py`) ---
+data/raw/*.csv
+data/raw/*.xlsx
+data/processed/*.csv
+dashboards/*.html
+reports/excel/*.xlsx
+reports/pdf/*.pdf
+reports/_chart_tmp/
+
+# Keep the folders themselves under version control
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+!dashboards/.gitkeep
+!reports/excel/.gitkeep
+!reports/pdf/.gitkeep
+
+# --- OS / IDE ---
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

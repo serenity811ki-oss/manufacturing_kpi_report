@@ -1,0 +1,8 @@
+line_id,factory_id,line_name,product_family,installed_year
+F01-L1,F01,Line 1,Panel-Q,2013
+F01-L2,F01,Line 2,Widget-A,2016
+F01-L3,F01,Line 3,Widget-B,2015
+F02-L1,F02,Line 1,Widget-B,2013
+F02-L2,F02,Line 2,Panel-Q,2020
+F03-L1,F03,Line 1,Widget-A,2021
+F03-L2,F03,Line 2,Housing-Y,2012

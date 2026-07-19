@@ -1,0 +1,4 @@
+factory_id,factory_name,country,num_lines,timezone
+F01,Springfield Plant,USA,3,UTC
+F02,Monterrey Plant,Mexico,2,UTC
+F03,Katowice Plant,Poland,2,UTC

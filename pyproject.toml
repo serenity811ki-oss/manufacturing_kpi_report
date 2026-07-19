@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "manufacturing-analytics"
+version = "1.0.0"
+description = "Production-ready manufacturing data analytics platform: synthetic data generation, KPI engineering (OEE, MTBF, MTTR, etc.), visualization dashboards, and automated Excel/PDF reporting."
+readme = "README.md"
+requires-python = ">=3.12"
+license = { text = "MIT" }
+authors = [
+    { name = "Manufacturing Analytics Team" }
+]
+keywords = ["manufacturing", "oee", "analytics", "quality", "kpi", "dashboard", "plotly"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Manufacturing",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-v --tb=short --cov=manufacturing_analytics --cov-report=term-missing"
+
+[tool.black]
+line-length = 100
+target-version = ["py312"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"

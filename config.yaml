@@ -1,0 +1,88 @@
+# =============================================================================
+# Manufacturing Analytics Platform — Central Configuration
+# All modules read parameters from here so behaviour can change without
+# touching source code (12-factor style configuration).
+# =============================================================================
+
+project:
+  name: "Manufacturing Analytics Platform"
+  version: "1.0.0"
+  timezone: "UTC"
+
+# --- Synthetic data generation -----------------------------------------------
+data_generation:
+  random_seed: 42
+  start_date: "2024-07-01"          # inclusive
+  months_of_history: 12              # >= 12 months requested by spec
+  factories:
+    - { id: "F01", name: "Springfield Plant", country: "USA",   lines: 3 }
+    - { id: "F02", name: "Monterrey Plant",   country: "Mexico",lines: 2 }
+    - { id: "F03", name: "Katowice Plant",    country: "Poland",lines: 2 }
+  shifts:
+    - { id: "S1", name: "Morning",   start: "06:00", end: "14:00" }
+    - { id: "S2", name: "Afternoon", start: "14:00", end: "22:00" }
+    - { id: "S3", name: "Night",     start: "22:00", end: "06:00" }
+  machines_per_line: [2, 4]          # inclusive random range
+  operators_per_factory: [8, 15]     # inclusive random range
+  target_cycle_time_seconds: [20, 90]  # per-machine ideal cycle time range
+  downtime:
+    events_per_machine_per_month: [2, 10]
+    reason_codes:
+      - "Mechanical Failure"
+      - "Electrical Failure"
+      - "Changeover / Setup"
+      - "Material Shortage"
+      - "Planned Maintenance"
+      - "Operator Break"
+      - "Tooling Issue"
+      - "Quality Hold"
+      - "Software / PLC Fault"
+      - "Utility Outage"
+  quality:
+    inspections_per_shift: [1, 3]
+    defect_types:
+      - "Dimensional Deviation"
+      - "Surface Scratch"
+      - "Cracks"
+      - "Discoloration"
+      - "Missing Component"
+      - "Incorrect Assembly"
+      - "Contamination"
+      - "Weld Defect"
+      - "Packaging Damage"
+      - "Label Misprint"
+    base_defect_rate: 0.03           # baseline probability an inspected unit fails
+  sensors:
+    reading_interval_minutes: 120
+    types:
+      temperature_c:   { normal_range: [55, 75],  warn_above: 85,  unit: "°C" }
+      vibration_mm_s:   { normal_range: [0.5, 3.0], warn_above: 4.5, unit: "mm/s" }
+      pressure_bar:     { normal_range: [4.0, 6.5], warn_above: 8.0, unit: "bar" }
+      rpm:              { normal_range: [900, 1500], warn_above: 1800, unit: "rpm" }
+      power_kw:         { normal_range: [10, 45],  warn_above: 60,  unit: "kW" }
+
+# --- Data quality / cleaning thresholds --------------------------------------
+data_quality:
+  outlier_z_threshold: 3.0
+  missing_value_strategy: "median"    # median | mean | drop | ffill
+  duplicate_subset_keys:
+    production: ["factory_id", "line_id", "machine_id", "date", "shift_id"]
+    sensor: ["machine_id", "timestamp", "sensor_type"]
+
+# --- KPI targets (used for RAG status coloring in dashboards/reports) --------
+kpi_targets:
+  oee_world_class: 0.85
+  oee_target: 0.75
+  availability_target: 0.90
+  performance_target: 0.90
+  quality_target: 0.98
+  scrap_rate_max: 0.03
+  defect_rate_max: 0.03
+
+# --- Output locations ----------------------------------------------------
+paths:
+  raw_data_dir: "data/raw"
+  processed_data_dir: "data/processed"
+  dashboards_dir: "dashboards"
+  reports_dir: "reports"
+  logs_dir: "logs"
